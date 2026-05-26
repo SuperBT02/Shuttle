@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.github.florent37.glidepalette.BitmapPalette;
 import com.github.florent37.glidepalette.GlidePalette;
 import com.simplecity.amp_library.format.PrefixHighlighter;
 import com.simplecity.amp_library.model.Album;
@@ -129,7 +130,7 @@ public class AlbumView extends MultiItemView<AlbumView.ViewHolder, Album> implem
 
         requestManager.load(album)
                 .listener(getViewType() == ViewType.ALBUM_PALETTE ? GlidePalette.with(album.getArtworkKey())
-                        .use(GlidePalette.Profile.MUTED_DARK)
+                        .use(BitmapPalette.Profile.MUTED_DARK)
                         .intoBackground(holder.bottomContainer)
                         .crossfade(true)
                         : null)
@@ -196,7 +197,7 @@ public class AlbumView extends MultiItemView<AlbumView.ViewHolder, Album> implem
         }
 
         if (requiresSubstring) {
-            if (!TextUtils.isEmpty(string)) {
+            if (string != null && !string.isEmpty()) {
                 string = string.substring(0, 1).toUpperCase();
             } else {
                 string = " ";

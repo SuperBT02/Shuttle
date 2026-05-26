@@ -52,7 +52,7 @@ public class QCircleActivity extends BaseActivity {
     // [END] QuickCircle info.
 
     // -------------------------------------------------------------------------------
-    private final boolean DEBUG = true;
+    private static final boolean DEBUG = true;
     private final String TAG = "QCircleActivity";
     int mQuickCoverState = 0;
     Context mContext;
@@ -251,11 +251,6 @@ public class QCircleActivity extends BaseActivity {
 
         if (pauseBtn == null) {
             return;
-        }
-        if (MusicServiceConnectionUtils.serviceBinder != null && mediaManager.isPlaying()) {
-
-        } else {
-
         }
     }
 

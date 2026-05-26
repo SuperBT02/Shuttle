@@ -5,6 +5,8 @@ import android.animation.TypeEvaluator;
 public class ArgbEvaluator implements TypeEvaluator {
         private static final ArgbEvaluator sInstance = new ArgbEvaluator();
 
+        private ArgbEvaluator() {}
+
         /**
          * Returns an instance of <code>ArgbEvaluator</code> that may be used in
          * {@link ValueAnimator#setEvaluator(TypeEvaluator)}. The same instance may

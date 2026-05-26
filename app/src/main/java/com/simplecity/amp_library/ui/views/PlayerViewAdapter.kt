@@ -83,7 +83,7 @@ abstract class PlayerViewAdapter : PlayerView {
     }
 
     override fun presentRingtonePermissionDialog() {
-
+        // No-op
     }
 
     override fun showRingtoneSetMessage() {

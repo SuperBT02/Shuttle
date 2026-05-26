@@ -77,6 +77,22 @@ public class WidgetProviderExtraLarge extends BaseWidgetProvider {
         pushUpdate(context, appWidgetId, views);
     }
 
+    private CharSequence resolveErrorState(Resources res, CharSequence titleName) {
+        String status = Environment.getExternalStorageState();
+        if (status.equals(Environment.MEDIA_SHARED) || status.equals(Environment.MEDIA_UNMOUNTED)) {
+            return android.os.Environment.isExternalStorageRemovable()
+                    ? res.getText(R.string.sdcard_busy_title)
+                    : res.getText(R.string.sdcard_busy_title_nosdcard);
+        } else if (status.equals(Environment.MEDIA_REMOVED)) {
+            return android.os.Environment.isExternalStorageRemovable()
+                    ? res.getText(R.string.sdcard_missing_title)
+                    : res.getText(R.string.sdcard_missing_title_nosdcard);
+        } else if (titleName == null) {
+            return res.getText(R.string.emptyplaylist);
+        }
+        return null;
+    }
+
     @Override
     public void update(MusicService service, SharedPreferences sharedPreferences, int[] appWidgetIds, boolean updateArtwork) {
 
@@ -106,22 +122,7 @@ public class WidgetProviderExtraLarge extends BaseWidgetProvider {
             }
 
             // Format title string with track number, or show SD card message
-            String status = Environment.getExternalStorageState();
-            if (status.equals(Environment.MEDIA_SHARED) || status.equals(Environment.MEDIA_UNMOUNTED)) {
-                if (android.os.Environment.isExternalStorageRemovable()) {
-                    errorState = res.getText(R.string.sdcard_busy_title);
-                } else {
-                    errorState = res.getText(R.string.sdcard_busy_title_nosdcard);
-                }
-            } else if (status.equals(Environment.MEDIA_REMOVED)) {
-                if (android.os.Environment.isExternalStorageRemovable()) {
-                    errorState = res.getText(R.string.sdcard_missing_title);
-                } else {
-                    errorState = res.getText(R.string.sdcard_missing_title_nosdcard);
-                }
-            } else if (titleName == null) {
-                errorState = res.getText(R.string.emptyplaylist);
-            }
+            errorState = resolveErrorState(res, titleName);
 
             if (errorState != null) {
                 // Show error state to user

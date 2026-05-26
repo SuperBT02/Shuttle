@@ -43,7 +43,7 @@ public class QueueManager {
         int LAST = 1;
     }
 
-    private final char hexDigits[] = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+    private final char[] hexDigits = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
 
     @NonNull
     List<QueueItem> playlist = new ArrayList<>();
@@ -407,9 +407,9 @@ public class QueueManager {
                     if (queueList != null) {
                         playlist = deserializePlaylist(queueList, queueItems);
 
-                        final int queuePosition = playbackSettingsManager.getQueuePosition();
+                        final int newQueuePosition = playbackSettingsManager.getQueuePosition();
 
-                        if (queuePosition < 0 || queuePosition >= playlist.size()) {
+                        if (newQueuePosition < 0 || newQueuePosition >= playlist.size()) {
                             // The saved playlist is bogus, discard it
                             playlist.clear();
                             queueReloading = false;
@@ -417,7 +417,7 @@ public class QueueManager {
                             return;
                         }
 
-                        QueueManager.this.queuePosition = queuePosition;
+                        QueueManager.this.queuePosition = newQueuePosition;
 
                         if (repeatMode != RepeatMode.ALL && repeatMode != RepeatMode.ONE) {
                             repeatMode = RepeatMode.OFF;
@@ -430,7 +430,7 @@ public class QueueManager {
                             if (queueList != null) {
                                 shuffleList = deserializePlaylist(queueList, queueItems);
 
-                                if (queuePosition >= shuffleList.size()) {
+                                if (newQueuePosition >= shuffleList.size()) {
                                     // The saved playlist is bogus, discard it
                                     shuffleList.clear();
                                     queueReloading = false;

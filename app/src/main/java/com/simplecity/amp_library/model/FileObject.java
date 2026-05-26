@@ -25,6 +25,16 @@ public class FileObject extends BaseFileObject {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        FileObject that = (FileObject) o;
+        if (extension != null ? !extension.equals(that.extension) : that.extension != null) return false;
+        return tagInfo != null ? tagInfo.equals(that.tagInfo) : that.tagInfo == null;
+    }
+
+    @Override
     public String toString() {
         return "FileObject{" +
                 "extension='" + extension + '\'' +

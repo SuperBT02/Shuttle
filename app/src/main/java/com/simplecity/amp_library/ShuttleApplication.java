@@ -7,7 +7,6 @@ import android.content.ContentValues;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Environment;
-import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
@@ -52,6 +51,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -74,7 +74,11 @@ public class ShuttleApplication extends DaggerApplication {
 
     private RefWatcher refWatcher;
 
-    public HashMap<String, UserSelectedArtwork> userSelectedArtwork = new HashMap<>();
+    private final Map<String, UserSelectedArtwork> userSelectedArtwork = new HashMap<>();
+
+    public Map<String, UserSelectedArtwork> getUserSelectedArtwork() {
+        return userSelectedArtwork;
+    }
 
     private static Logger jaudioTaggerLogger1 = Logger.getLogger("org.jaudiotagger.audio");
     private static Logger jaudioTaggerLogger2 = Logger.getLogger("org.jaudiotagger");
@@ -377,16 +381,4 @@ public class ShuttleApplication extends DaggerApplication {
                 .flatMapCompletable(songs -> Completable.complete());
     }
 
-    private void enableStrictMode() {
-        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-                .detectAll()
-                .penaltyLog()
-                .build());
-
-        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-                .detectAll()
-                .penaltyLog()
-                .penaltyFlashScreen()
-                .build());
-    }
 }

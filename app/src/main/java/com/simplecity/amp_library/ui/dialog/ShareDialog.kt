@@ -60,12 +60,12 @@ class ShareDialog : DialogFragment() {
                                             sendIntent.type = "image/jpeg"
                                         }
                                     } catch (ignored: FileNotFoundException) {
-
+                                        // No-op
                                     } finally {
                                         try {
                                             fileOutputStream?.close()
                                         } catch (ignored: IOException) {
-
+                                            // No-op
                                         }
                                     }
 

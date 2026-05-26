@@ -322,19 +322,10 @@ public class Equalizer {
             Log.e(TAG, "Error enabling bass boost!", e);
         }
 
-        //        try {
-        //            short preset = Short.decode(sharedPreferences.getString("audiofx.reverb.preset", String.valueOf(PresetReverb.PRESET_NONE)));
-        //            session.enableReverb(globalEnabled && (preset > 0));
-        //            session.setReverbPreset(preset);
-        //
-        //        } catch (Exception e) {
-        //            Log.e(TAG, "Error enabling reverb preset", e);
-        //        }
-
         try {
             session.enableEqualizer(globalEnabled);
             final int customPresetPos = session.getNumEqualizerPresets();
-            final int preset = Integer.valueOf(mPrefs.getString("audiofx.eq.preset", String.valueOf(customPresetPos)));
+            final int preset = Integer.parseInt(mPrefs.getString("audiofx.eq.preset", String.valueOf(customPresetPos)));
             final int bands = session.getNumEqualizerBands();
 
             /*
