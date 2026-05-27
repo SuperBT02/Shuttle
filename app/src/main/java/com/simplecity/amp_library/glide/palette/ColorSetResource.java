@@ -22,6 +22,6 @@ public class ColorSetResource implements Resource<ColorSet> {
 
     @Override
     public void recycle() {
-        // Intentionally empty
+        // No native resources to release: ColorSet is a plain in-memory object.
     }
 }

@@ -28,6 +28,8 @@ public class PlayCountContentProvider extends ContentProvider {
 
     private static final String BASE_PATH = "play_count";
 
+    private static final String UNKNOWN_URI_MESSAGE = "Unknown URI: ";
+
     private static final UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
     static {
@@ -63,7 +65,7 @@ public class PlayCountContentProvider extends ContentProvider {
                 queryBuilder.appendWhere(PlayCountTable.COLUMN_ID + "=" + uri.getLastPathSegment());
                 break;
             default:
-                throw new IllegalArgumentException("Unknown URI: " + uri);
+                throw new IllegalArgumentException(UNKNOWN_URI_MESSAGE + uri);
         }
 
         SQLiteDatabase db = database.getWritableDatabase();
@@ -90,7 +92,7 @@ public class PlayCountContentProvider extends ContentProvider {
                 id = sqlDB.insert(PlayCountTable.TABLE_PLAY_COUNT, null, values);
                 break;
             default:
-                throw new IllegalArgumentException("Unknown URI: " + uri);
+                throw new IllegalArgumentException(UNKNOWN_URI_MESSAGE + uri);
         }
         if (id != -1) {
             getContext().getContentResolver().notifyChange(uri, null);
@@ -122,7 +124,7 @@ public class PlayCountContentProvider extends ContentProvider {
                 }
                 break;
             default:
-                throw new IllegalArgumentException("Unknown URI: " + uri);
+                throw new IllegalArgumentException(UNKNOWN_URI_MESSAGE + uri);
         }
         getContext().getContentResolver().notifyChange(uri, null);
         return rowsDeleted;
@@ -159,7 +161,7 @@ public class PlayCountContentProvider extends ContentProvider {
                 }
                 break;
             default:
-                throw new IllegalArgumentException("Unknown URI: " + uri);
+                throw new IllegalArgumentException(UNKNOWN_URI_MESSAGE + uri);
         }
         if (rowsUpdated > 0) {
             getContext().getContentResolver().notifyChange(uri, null);

@@ -169,7 +169,9 @@ public class TaggerTask extends AsyncTask<Object, Integer, Boolean> {
                 if (tempFiles != null && tempFiles.size() != 0) {
                     for (int j = tempFiles.size() - 1; j >= 0; j--) {
                         File file = tempFiles.get(j);
-                        file.delete();
+                        if (!file.delete()) {
+                            android.util.Log.w("TaggerTask", "Failed to delete temp file: " + file.getPath());
+                        }
                         tempFiles.remove(j);
                     }
                 }

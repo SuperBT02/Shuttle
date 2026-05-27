@@ -68,7 +68,8 @@ public class ColorHelper {
         double[] lab = new double[3];
         ColorUtilsFromCompat.colorToLAB(findFg ? fg : bg, lab);
 
-        double low = 0, high = lab[0];
+        double low = 0;
+        double high = lab[0];
         final double a = lab[1], b = lab[2];
         for (int i = 0; i < 15 && high - low > 0.00001; i++) {
             final double l = (low + high) / 2;
@@ -500,7 +501,8 @@ public class ColorHelper {
         }
 
         private static int constrain(int amount, int low, int high) {
-            return amount < low ? low : (amount > high ? high : amount);
+            int clamped = amount > high ? high : amount;
+            return amount < low ? low : clamped;
         }
 
         private static float constrain(float amount, float low, float high) {
