@@ -47,7 +47,8 @@ public class MediaManager {
 
     private static final String TAG = "MediaManager";
 
-    private static final Random RANDOM = new Random();
+    import java.security.SecureRandom;
+    private static final SecureRandom RANDOM = new SecureRandom();
 
     @NonNull
     public Disposable playAll(@NonNull Single<List<Song>> songsSingle, @NotNull Function0<Unit> onEmpty) {
